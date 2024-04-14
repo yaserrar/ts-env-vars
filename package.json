@@ -1,0 +1,28 @@
+{
+  "name": "ts-env-vars",
+  "version": "1.0.0",
+  "description": "Package that makes dealing with environment variables type safe",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yaserrar/ts-env-vars.git"
+  },
+  "keywords": [
+    "env",
+    "vars"
+  ],
+  "author": "yaserrar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yaserrar/ts-env-vars/issues"
+  },
+  "homepage": "https://github.com/yaserrar/ts-env-vars#readme",
+  "dependencies": {
+    "@types/node": "^20.12.7",
+    "typescript": "^5.4.5",
+    "zod": "^3.22.4"
+  }
+}
