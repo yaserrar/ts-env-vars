@@ -1,4 +1,4 @@
-import { ZodType, z } from "zod";
+import { ZodError, ZodType, z } from "zod";
 
 const createEnv = <
   TS extends { [key: string]: ZodType<any> },
@@ -21,8 +21,20 @@ const createEnv = <
   const allServer = server.merge(client);
 
   const parsedEnv = isServer
-    ? allServer.parse({ ...env.server, ...env.client })
-    : allClient.parse({ ...env.client });
+    ? allServer.safeParse({ ...env.server, ...env.client })
+    : allClient.safeParse({ ...env.client });
+
+  const onValidationError = (error: ZodError) => {
+    console.error(
+      "❌ Invalid environment variables:",
+      error.flatten().fieldErrors
+    );
+    throw new Error("Invalid environment variables");
+  };
+
+  if (parsedEnv.success === false) {
+    return onValidationError(parsedEnv.error);
+  }
 
   const newEnv = { ...env.server, ...env.client };
   return newEnv;
