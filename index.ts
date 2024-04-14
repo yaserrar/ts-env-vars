@@ -5,18 +5,16 @@ const createEnv = <
   TC extends { [key: string]: ZodType<any> }
 >(
   schema: {
-    server: { [key: string]: ZodType<any> };
-    client: { [key: string]: ZodType<any> };
+    server: TS;
+    client: TC;
   },
   env: {
     server: { [K in keyof TS]: any };
     client: { [K in keyof TC]: any };
   }
 ) => {
-  const _client = typeof schema.client === "object" ? schema.client : {};
-  const _server = typeof schema.server === "object" ? schema.server : {};
-  const client = z.object(_client);
-  const server = z.object(_server);
+  const client = z.object(schema.client);
+  const server = z.object(schema.server);
   const isServer = typeof window === "undefined";
 
   const allClient = client;
@@ -26,7 +24,8 @@ const createEnv = <
     ? allServer.parse({ ...env.server, ...env.client })
     : allClient.parse({ ...env.client });
 
-  return parsedEnv;
+  const newEnv = { ...env.server, ...env.client };
+  return newEnv;
 };
 
 export default createEnv;
