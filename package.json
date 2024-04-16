@@ -11,6 +11,8 @@
     "url": "git+https://github.com/yaserrar/ts-env-vars.git"
   },
   "keywords": [
+    "typescript",
+    "typesafe",
     "env",
     "vars"
   ],
